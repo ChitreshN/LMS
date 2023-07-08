@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1=title
+
+    form(method='POST' action='')
+        div.form-group
+            lable(for='title') Title:
+            input#title.form-control(type='text',placeholder='Name of the course' name='title' required='true')
+        div.form-group
+            lable(for='summary') Summary:
+            input#title.form-control(type='text',placeholder='provide a desciption of the course' name='summary' required='true')
+        button.btn.btn-primary(type='submit') Create Course

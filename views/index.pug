@@ -2,4 +2,10 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #{title}, a personal learning management system
+
+  ul
+    li #[strong Courses :] !{course_cnt}
+    li #[strong Courses_in_progress :] !{course_in_progress}
+    li #[strong Assignments :] !{assignments_cnt}
+    li #[strong Books :] !{book_cnt}
