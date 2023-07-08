@@ -3,6 +3,7 @@ const schema = mongoose.Schema
 
 const book_schema = new schema({
     title : {type : String, required : true},
+    course: {type: schema.Types.ObjectId, ref: "Course", required:true},
     link  : {type: String},
 })
 
