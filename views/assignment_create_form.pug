@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1=title
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='title') Title:
+            input#title.form-control(type='text',placeholder='Title of the assignment' name='title' required='true')
+        div.form-group
+            label(for='material') Material:
+            input#title.form-control(type='text',palceholder='Provide link to materials if any' name='material' required='false')
+

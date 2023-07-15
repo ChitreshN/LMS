@@ -6,11 +6,20 @@ const asynchandler  = require('express-async-handler')
 exports.assignment_create_get = asynchandler(async (req,res,next)=>{
 
     const courses = await Course.find().exec()
-    res.render('assignment_form',{title: 'Assignment Form',courses : courses})
+    res.render('create_assignment_form',{title: 'Assignment Form',courses : courses})
 
 })
 exports.assignment_detail= asynchandler(async (req,res,next)=>{
+    const assignment = new Assignments({
+        details : req.body.details,
+        date_announced : req.body.date_announced,
+        date_due : req.body.date_due,
+        material : req.body.material,
+        course : req.body.course,
+    })
 
+    await assignment.save()
+    res.redirect(assignment.url)
 })
 exports.assignment_delete_get= asynchandler(async (req,res,next)=>{
 
