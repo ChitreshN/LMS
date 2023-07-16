@@ -5,9 +5,17 @@ block content
 
     form(method='POST' action='')
         div.form-group
-            label(for='title') Title:
+            lable(for='title') Title:
             input#title.form-control(type='text',placeholder='Title of the assignment' name='title' required='true')
         div.form-group
-            label(for='material') Material:
-            input#title.form-control(type='text',palceholder='Provide link to materials if any' name='material' required='false')
-
+            lable(for='material') Material:
+            input#material.form-control(type='text',palceholder='Provide link to materials if any' name='material' required='false')
+        div.form-group
+            lable(for='date_due') Due Date:
+            input#date.form-control(type='date' name='date_due' required='true')
+        div.form-group
+            lable(for='course') Course:
+            select#course.form-control(type='select' name='course' required='true')
+                for course in courses
+                    option(value=course._id) #{course.title}
+        button.btn.btn-primary(type='submit') Submit
