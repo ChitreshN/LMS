@@ -18,6 +18,10 @@ exports.assignment_update_get= asynchandler(async (req,res,next)=>{
 
 })
 exports.assignment_list= asynchandler(async (req,res,next)=>{
+    const assignments = await Assignments.find().exec()
+    res.send({
+        assignments : assignments,
+    })
 
 })
 exports.assignment_create_post = asynchandler(async (req,res,next)=>{

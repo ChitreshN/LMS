@@ -11,19 +11,16 @@ exports.index = asynchandler(async (req,res,next) =>{
         Course.countDocuments({status: "In Progress"}).exec(),
     ])
 
-    res.render('index',{
-        title : 'Personal LMS',
-        course_cnt : course_cnt,
+    res.send({
+        courses : course_cnt,
+        assignments : assignments_cnt,
+        books : book_cnt,
         course_in_progress : course_in_progress,
-        book_cnt : book_cnt,
-        assignments_cnt : assignments_cnt
     })
 }) 
 
 exports.course_create_get = asynchandler(async (req,res,next)=>{
-    res.render('course_form',{
-        title : 'Create a new course',
-    })
+    console.log("recieved get request for create course")
 })
 exports.course_detail= asynchandler(async (req,res,next)=>{
     const [course,assignments,books] = await Promise.all([
@@ -33,16 +30,23 @@ exports.course_detail= asynchandler(async (req,res,next)=>{
     ])
     res.send(course,assignments,books)
 })
-exports.course_delete_get= asynchandler(async (req,res,next)=>{
 
-})
 exports.course_update_get= asynchandler(async (req,res,next)=>{
 
 })
+
+exports.course_update_post = asynchandler(async (req,res,next)=>{
+
+})
 exports.course_list= asynchandler(async (req,res,next)=>{
+    const courses = await (Course.find().exec())
+    res.send({
+        courses : courses,
+    })
 
 })
 exports.course_create_post = asynchandler(async (req,res,next)=>{
+    console.log(req.body.title)
     const course = new Course({
         title : req.body.title,
         summary : req.body.summary,
@@ -50,12 +54,16 @@ exports.course_create_post = asynchandler(async (req,res,next)=>{
     console.log('here')
     await course.save()
     console.log('done saving')
-    res.redirect(course.url)
+    res.send({
+        course : course
+    })
 
 })
+
+exports.course_delete_get= asynchandler(async (req,res,next)=>{
+
+})
+
 exports.course_delete_post = asynchandler(async (req,res,next)=>{
-
-})
-exports.course_update_post = asynchandler(async (req,res,next)=>{
 
 })
