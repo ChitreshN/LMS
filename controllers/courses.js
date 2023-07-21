@@ -4,7 +4,7 @@ const Course        = require('../models/course')
 const asynchandler  = require('express-async-handler')
 
 exports.index = asynchandler(async (req,res,next) =>{
-    const [course_cnt, book_cnt, assignments_cnt,course_in_progress,] = await Promise.all([
+    const [course_cnt, assignments_cnt, book_cnt,course_in_progress,] = await Promise.all([
         Course.countDocuments({}).exec(),
         Assignments.countDocuments({status : "Incomplete"}).exec(),
         Book.countDocuments({}).exec(),
@@ -19,9 +19,6 @@ exports.index = asynchandler(async (req,res,next) =>{
     })
 }) 
 
-exports.course_create_get = asynchandler(async (req,res,next)=>{
-    console.log("recieved get request for create course")
-})
 exports.course_detail= asynchandler(async (req,res,next)=>{
     const [course,assignments,books] = await Promise.all([
         Course.findById(req.params.id).exec(),
@@ -31,13 +28,6 @@ exports.course_detail= asynchandler(async (req,res,next)=>{
     res.send(course,assignments,books)
 })
 
-exports.course_update_get= asynchandler(async (req,res,next)=>{
-
-})
-
-exports.course_update_post = asynchandler(async (req,res,next)=>{
-
-})
 exports.course_list= asynchandler(async (req,res,next)=>{
     const courses = await (Course.find().exec())
     res.send({
@@ -45,23 +35,36 @@ exports.course_list= asynchandler(async (req,res,next)=>{
     })
 
 })
+
+exports.course_create_get = asynchandler(async (req,res,next)=>{
+        res.render('course_form',{
+        title : 'Create a new course',
+    })
+})
+
 exports.course_create_post = asynchandler(async (req,res,next)=>{
     console.log(req.body.title)
     const course = new Course({
         title : req.body.title,
         summary : req.body.summary,
     })
-    console.log('here')
     await course.save()
-    console.log('done saving')
     res.send({
         course : course
     })
 
 })
 
-exports.course_delete_get= asynchandler(async (req,res,next)=>{
+exports.course_update_get= asynchandler(async (req,res,next)=>{
+    res.send('render_form')
+})
 
+exports.course_update_post = asynchandler(async (req,res,next)=>{
+
+})
+
+exports.course_delete_get= asynchandler(async (req,res,next)=>{
+    res.send('render_form here too')
 })
 
 exports.course_delete_post = asynchandler(async (req,res,next)=>{
