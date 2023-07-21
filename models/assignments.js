@@ -4,8 +4,8 @@ const schema = mongoose.Schema
 
 const assignment_schema = new schema({
     details : {type : String, required : true, maxlength : 200},
-    date_announced : {type : Date, required : true},
-    date_due : {type : Date, required : true, default : Date.now},
+    date_announced : {type : Date, required : true, default : Date.now},
+    date_due : {type : Date, required : true,},
     material : {type : String},
     status : {type : String, required : true, enum : ["Done","Incomplete"], default:"Incomplete"},
     course : {type: schema.Types.ObjectId, ref : 'Course', required : true}
