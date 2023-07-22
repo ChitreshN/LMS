@@ -60,7 +60,17 @@ exports.course_update_get= asynchandler(async (req,res,next)=>{
 })
 
 exports.course_update_post = asynchandler(async (req,res,next)=>{
-
+    const course = await Course.findById(req.params.id).exec()
+    const updated_course = new Course({
+        title : typeof req.body.title == 'undefined' ? course.title : req.body.title,
+        summary :typeof req.body.summary == 'undefined' ? course.summary: req.body.summary,
+        status : typeof req.body.status == 'undefined' ? course.status: req.body.status,
+        _id : req.params.id,
+    })
+    const update_db = await Course.findByIdAndUpdate(req.params.id,updated_course,{})
+    res.send({
+        updated_course : updated_course,
+    })
 })
 
 exports.course_delete_get= asynchandler(async (req,res,next)=>{
