@@ -67,7 +67,7 @@ exports.course_update_post = asynchandler(async (req,res,next)=>{
         status : typeof req.body.status == 'undefined' ? course.status: req.body.status,
         _id : req.params.id,
     })
-    const update_db = await Course.findByIdAndUpdate(req.params.id,updated_course,{})
+    await Course.findByIdAndUpdate(req.params.id,updated_course,{})
     res.send({
         updated_course : updated_course,
     })
@@ -78,5 +78,8 @@ exports.course_delete_get= asynchandler(async (req,res,next)=>{
 })
 
 exports.course_delete_post = asynchandler(async (req,res,next)=>{
-
+    const course = await Course.findByIdAndDelete(req.params.id).exec()
+    res.send({
+        deleted_course_info: course,
+    })
 })
